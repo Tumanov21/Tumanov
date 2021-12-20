@@ -1,0 +1,25 @@
+﻿@model Site.Models.Data.Supplier
+@{ 
+
+}
+<form asp-action="Create" asp-controller="Supplier">
+    <div asp-validation-summary="All"></div>
+
+    <div>
+        <label asp-for="Email">Email</label>
+        <input type="text" asp-for="Email" />
+    </div>
+
+    <div>
+        <label asp-for="Company.Name">Company</label>
+        <input type="text" asp-for="Company.Name" />
+    </div>
+
+    <div>
+        <a class="btn btn-outline-dark" asp-action="Search" asp-controller="Supplier">Back</a>
+    </div>
+
+    <div>
+        <input class="btn btn-outline-primary" type="submit" value="Create" />
+    </div>
+</form>

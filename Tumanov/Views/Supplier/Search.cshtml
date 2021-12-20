@@ -1,0 +1,117 @@
+﻿@model Site.ViewsModels.Supp.IndexViewsModels
+
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<a asp-action="Create" asp-controller="Supplier">Create</a>
+
+
+<style>
+        @@font-face {
+            font-family: 'FontAwesome';
+            src: url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/fonts/fontawesome-webfont.woff2') format('woff2'), url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/fonts/fontawesome-webfont.woff') format('woff'), url('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/fonts/fontawesome-webfont.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal
+        }
+
+        .glyphicon {
+            display: inline-block;
+            font: normal normal normal 14px/1 FontAwesome;
+            font-size: inherit;
+            text-rendering: auto;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale
+        }
+
+        .glyphicon-chevron-right:before {
+            content: "\f054";
+        }
+
+        .glyphicon-chevron-left:before {
+            content: "\f053";
+        }
+    </style>
+
+<form>
+    <div>
+        <h1>Search</h1>
+        <div class="col-md-4">
+            <label>Supplier</label>
+            <div class="form-group">
+                <input name="email" value="@Model.FilterViewsModels.SelectedName" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label>Company</label>
+                <select name="company" asp-items="Model.FilterViewsModels.Company" class="form-control"></select>
+                <input type="submit" value="Filter" class="btn btn-outline-dark" />
+            </div>
+
+            </div>
+        </div>
+</form>
+
+
+    <table class="table">
+        <tr>
+            <th>
+                <a asp-action="Search" asp-route-sort="@(Model.SortViewsModels.EmailSort)"
+                   asp-route-name="@(Model.FilterViewsModels.SelectedName)"
+                   asp-route-company="@(Model.FilterViewsModels.SelectedCompanies)">
+                    Email
+                </a>
+            </th>
+
+            <th>
+                <a asp-action="Search" asp-route-sort="@(Model.SortViewsModels.CompanySort)"
+                   asp-route-name="@(Model.FilterViewsModels.SelectedName)"
+                   asp-route-company="@(Model.FilterViewsModels.SelectedCompanies)">
+                    Company
+                </a>
+            </th>
+        </tr>
+
+        @foreach (var item in Model.Suppliers)
+        {
+            <tr>
+                <td>@item.Email</td>
+                <td>@item.Company.Name</td>
+                <td>
+                    <a class="btn btn-outline-primary" asp-action="Details" asp-controller="Supplier" asp-route-id="@item.Id">Details</a>
+                    @if (User.IsInRole("admin"))
+                    {
+                        <a class="btn btn-outline-dark" asp-action="Edit" asp-controller="Supplier" asp-route-id="@item.Id">Edit</a>
+                        <a class="btn btn-outline-danger" asp-action="Delete" asp-controller="Supplier" asp-route-id="@item.Id">Delete</a>
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+    @if (Model.PageViewsModels.HasPreviousPage)
+    {
+        <a asp-action="Search"
+           asp-route-page="@(Model.PageViewsModels.PageNumber-1)"
+           asp-route-sort="@(Model.SortViewsModels.Current)"
+           asp-route-name="@(Model.FilterViewsModels.SelectedName)"
+           asp-route-company="@(Model.FilterViewsModels.SelectedCompanies)"
+           class="btn btn-outline-dark">
+            Back
+            <i class="glyphicon glyphicon-chevron-left"></i>
+        </a>
+    }
+
+
+    @if (Model.PageViewsModels.HasNextPage)
+    {
+        <a asp-action="Search"
+           asp-route-page="@(Model.PageViewsModels.PageNumber+1)"
+           asp-route-sort="@(Model.SortViewsModels.Current)"
+           asp-route-name="@(Model.FilterViewsModels.SelectedName)"
+           asp-route-company="@(Model.FilterViewsModels.SelectedCompanies)"
+           class="btn btn-outline-dark">
+            Next
+            <i class="glyphicon glyphicon-chevron-rigth"></i>
+        </a>
+    }

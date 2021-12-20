@@ -1,0 +1,19 @@
+﻿@model Site.Models.Data.Supplier
+@{
+
+}
+<form asp-action="Details" asp-controller="Supplier" method="post">
+    <div>
+        <dl>
+            <dt>Id</dt>
+            <dd>@Model.Id</dd>
+
+            <dt>Company</dt>
+            <dd>@Model.Company.Name</dd>
+        </dl>
+    </div>
+    <div>
+        <a class="btn btn-outline-dark" asp-action="Search" asp-controller="Supplier">Back</a>
+    </div>
+
+</form>

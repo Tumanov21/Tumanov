@@ -1,0 +1,26 @@
+﻿@model Site.Models.Data.Supplier
+
+
+<form asp-action="Delete" asp-controller="Supplier" asp-route-id="@Model.Id">
+    <div>
+        <dl>
+            <dd>Id</dd>
+            <dt>@Model.Id</dt>
+
+            <dd>Email</dd>
+            <dt>@Model.Email</dt>
+
+            <dd>Company</dd>
+            <dt>@Model.Company.Name</dt>
+        </dl>
+    </div>
+
+    <div>
+        <a class="btn btn-outline-dark" asp-action="Search" asp-controller="Supplier">Back</a>
+    </div>
+
+
+    <div>
+        <input type="submit" value="Delete"  class="btn btn-outline-danger"/>
+    </div>
+</form>
